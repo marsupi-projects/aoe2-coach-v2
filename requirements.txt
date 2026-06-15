@@ -1,0 +1,10 @@
+# mgz PyPI 1.8.51 cannot parse replays from patch v101.103.47452.0+ (Last Chieftains DLC).
+# Pinned to Kjir/aoc-mgz commit b4a30d8 which fixes the header parsing for this patch.
+# Migration plan: once happyleavesaoc/aoc-mgz releases a version that passes the test in
+# core/tools.py parse_replay(), replace this line with: mgz>=1.8.52
+# Verified: parse_match() on MP Replay v101.103.47452.0 @2026.06.13 143618 (1).aoe2record
+mgz @ git+https://github.com/Kjir/aoc-mgz.git@b4a30d8539c2fed4cbfc7b8cfec874e65cdc50a2
+anthropic>=0.40.0
+chromadb>=0.5.0
+python-dotenv>=1.0.0
+pytest>=7.0

@@ -1,0 +1,9 @@
+#!/bin/sh
+# Runs the test suite before every commit. Blocks the commit if any test fails.
+# Set up once per clone — this file is not tracked by git.
+if [ ! -f ".venv/Scripts/python.exe" ]; then
+    echo "pre-commit: .venv not found. Run: python -m venv .venv && pip install -r requirements.txt"
+    exit 1
+fi
+echo "pre-commit: running pytest..."
+.venv/Scripts/python.exe -m pytest tests/ -q
