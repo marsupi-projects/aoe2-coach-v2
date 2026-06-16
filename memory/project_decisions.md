@@ -13,7 +13,7 @@ Decisions locked in as of session 01. All decisions below are implemented in cod
 
 | Area | Decision |
 |---|---|
-| Civ knowledge seeding | Organic — agent builds civ knowledge from processed games; no manual seed |
+| Civ knowledge seeding | ~~Organic~~ **REVERSED in session 08** — see session 08 decisions below |
 | eAPM benchmarking | Relative only — compare player to their own past games; no hardcoded brackets |
 | `get_player_history` | Batch variant (one call for multiple players, not one call per player) |
 | `mgz` civ string | **Kjir fork pinned** — PyPI 1.8.51 and git master both fail on patch v101.103.47452.0+; `Kjir/aoc-mgz@b4a30d8` works; `parse_match()` used (returns civ as string); migration note in `requirements.txt` |
@@ -60,6 +60,22 @@ Decisions locked in as of session 01. All decisions below are implemented in cod
 | v1.4 plan | ChromaDB switches from `PersistentClient` (file) to `HttpClient` (HTTP) when `CHROMA_HOST` env var is set; local dev unchanged; new files: `Dockerfile`, `docker-compose.yml`, `.dockerignore` |
 
 **Why:** Deferring v1.4 to a fresh session — it touches `core/database.py` architecture and warrants a clean start.
+
+## Session 08 decisions (2026-06-16)
+
+| Area | Decision |
+|---|---|
+| Civ knowledge seeding | **Manual JSON files** — reversed session 01; organic seeding can't provide domain knowledge before many games have been played |
+| Knowledge file format | JSON, one file per civ in `data/knowledge/civs/`; `_template.json` defines the schema |
+| Civ schema | `civ`, `strengths`, `weaknesses`, `unique_unit`, `unique_tech` (nested by age), `economy_bonuses`, `team_bonus`, `build_order_notes`, `common_pairings`, `power_spikes` (nested by age) |
+| Prompt tuner promotion | Manual only — BLUEPRINT said automatic but code was already manual; BLUEPRINT corrected, not the code |
+| ingestion.py | Built in `memory/`; idempotent upsert; run via `python -m memory.ingestion` |
+| prompt_tuner.py | `__main__` block added; run via `python -m learning.prompt_tuner` |
+
+**Open items:**
+- v1.4 (Docker) still pending — deferred from session 07, not touched this session
+- Consider auto-calling ingestion at startup if knowledge files exist but aren't in ChromaDB yet
+- Other knowledge types beyond civs? (map notes, build order guides)
 
 ## Session 02 decisions (2026-06-14)
 

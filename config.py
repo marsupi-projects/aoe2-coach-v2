@@ -14,6 +14,7 @@ PROMPTS_PATH: Path = Path(os.getenv("PROMPTS_PATH", "data/prompts"))
 REPLAYS_INBOX: Path = Path(os.getenv("REPLAYS_INBOX", "data/replays/inbox"))
 LOGS_PATH: Path = Path(os.getenv("LOGS_PATH", "logs"))
 REFLECTIONS_PATH: Path = Path(os.getenv("REFLECTIONS_PATH", "data/reflections"))
+KNOWLEDGE_PATH: Path = Path(os.getenv("KNOWLEDGE_PATH", "data/knowledge"))
 
 EVALUATOR_PASS_THRESHOLD: float = 0.7
 EVALUATOR_CRITERIA_COUNT: int = 11

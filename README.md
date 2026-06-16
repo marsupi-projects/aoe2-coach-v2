@@ -61,6 +61,7 @@ REPORTS_PATH=data/reports
 PROMPTS_PATH=data/prompts
 REPLAYS_INBOX=data/replays/inbox
 LOGS_PATH=logs
+KNOWLEDGE_PATH=data/knowledge
 ```
 
 Only `ANTHROPIC_API_KEY` is required. All other values have working defaults and can be left as-is.
@@ -147,6 +148,94 @@ A minimum of 3 scored runs is required. If you have fewer, it prints a skip mess
 
 ---
 
+## How to improve the agent
+
+The agent gets better through a feedback loop you control. Here is the full workflow.
+
+### 1. Run a batch of replays, then reflect
+
+After several games, run:
+
+```powershell
+python reflect.py
+```
+
+This reads all scored runs, calls Claude to identify patterns, and writes a report to `data/reflections/`. It also stores the conclusions in ChromaDB so the agent picks them up automatically on the next run.
+
+### 2. Read the reflection report
+
+Open `data/reflections/reflection_YYYY-MM-DD.md`. Look at the conclusions — they list which evaluator criteria failed most often and why. A conclusion like:
+
+> `historical_context_present` fails in every sub-1.0 run — reports must include civilisation-specific strategic context, not just a note that no history was found.
+
+...tells you exactly what the agent is missing and what to fix.
+
+### 3. Edit the system prompt
+
+Open `core/prompt.py`. Find the rule that covers the failing criterion and make it more specific. Example:
+
+**Before:**
+```
+Historical context is mandatory for every human player.
+```
+
+**After:**
+```
+Historical context is mandatory for every human player and must include
+civilisation-specific strengths and weaknesses (e.g. Byzantine defensive
+bonuses, Aztec infantry strengths). A generic note that no history was
+found does not satisfy this requirement.
+```
+
+After editing, bump `PROMPT_VERSION` at the top of `core/prompt.py`:
+
+```python
+PROMPT_VERSION = "v1.1"   # was v1.0
+```
+
+This tags future runs with the new version so you can compare scores.
+
+### 4. Check the prompt tuner
+
+After running several replays under the new version:
+
+```powershell
+python -m learning.prompt_tuner
+```
+
+Output:
+
+```
+[prompt_tuner] Score by prompt version:
+  v1.0: avg=0.727  pass_rate=60%  n=5
+  v1.1: avg=0.909  pass_rate=90%  n=4 <-- best
+[prompt_tuner] Best version: v1.1
+```
+
+If `v1.1` outscores `v1.0`, the edit worked — keep it. If not, the reflection conclusions may point to a different root cause. Revert the prompt change, re-read the report, and try again.
+
+### 5. Add civ knowledge
+
+The agent calls `get_civ_knowledge()` before writing each report. The more civ data you ingest, the more specific its coaching advice becomes.
+
+To add a new civilisation:
+
+1. Copy `data/knowledge/civs/_template.json` and rename it (e.g. `franks.json`)
+2. Fill in the fields
+3. Run:
+
+```powershell
+python -m memory.ingestion
+```
+
+Re-running ingestion is safe — it upserts by civ name, so existing entries are updated rather than duplicated.
+
+### 6. Update the evaluator criteria when "good" changes
+
+The 11 criteria in `core/evaluator.py` define what a passing run looks like. If you decide the agent should cover something new (e.g. build order advice), update `SPEC.md §3` first, then add the corresponding `_cN_*` function to `evaluator.py` and increment `EVALUATOR_CRITERIA_COUNT` in `config.py`.
+
+---
+
 ## Running the tests
 
 ```powershell
@@ -179,10 +268,13 @@ core/
 memory/
   retrieval.py       # RAG queries — player history, team history, civ knowledge
   episodic.py        # Stores run memories in ChromaDB after each run
+  ingestion.py       # Ingests external domain knowledge (civ files) into ChromaDB
   embeddings.py      # Text → vector utility
   memory.py          # Context window management
 learning/
   feedback.py        # Logs run outcomes to data/runs/
+  reflection.py      # Analyses run history and stores conclusions in ChromaDB
+  prompt_tuner.py    # Compares prompt versions by average score
 infra/
   logger.py          # Structured JSONL step-level logging
 data/
@@ -190,6 +282,8 @@ data/
   reports/           # Coaching reports written here
   runs/              # JSONL run history
   chroma/            # ChromaDB on-disk store
+  knowledge/civs/    # Civ knowledge JSON files — source for ingestion.py
+  reflections/       # Reflection reports written by reflect.py
 logs/                # Step-level JSONL logs
 journal/             # Development session notes (not runtime)
 ```

@@ -60,6 +60,14 @@ Every step in `main.py` and `core/agent.py` must have:
 Apply this rule whenever either file is created or modified. Do not remove existing
 prints or comments from these two files without an explicit instruction to do so.
 
+## Documentation
+- `README.md` must always contain a section explaining how a human operator
+  improves the agent over time. This section must cover: when and how to trigger
+  reflection, how to interpret the reflection report and translate it into prompt
+  edits, how to use the prompt tuner to validate those edits, and how to add
+  external domain knowledge via ingestion. Update this section whenever any part
+  of the improvement workflow changes.
+
 ## At the end of every session
 Update `README.md` to reflect any changes made this session — new features, changed
 commands, new output files, or anything that affects how someone sets up or runs the

@@ -77,3 +77,7 @@ def tune() -> dict:
         print(f"[prompt_tuner] To promote: update PROMPT_VERSION in core/prompt.py to '{winner}'")
 
     return {"versions": versions, "best": winner}
+
+
+if __name__ == "__main__":
+    tune()

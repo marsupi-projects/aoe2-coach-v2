@@ -86,6 +86,7 @@
 - **`retrieval.py`** — queries ChromaDB using RAG to fetch the most semantically relevant past context, run summaries, and knowledge before each call to the Claude model.
 - **`ingestion.py`** — handles storing new incoming external data into ChromaDB; things that arrive from outside the agent's own reasoning — database content, external documents, raw inputs; calls `embeddings.py` to convert that data into vectors before storing.
 - **`episodic.py`** — handles storing the agent's own memories of what it did; after each run, takes the run summary and writes it to ChromaDB as a compressed memory the agent can retrieve later; calls `embeddings.py` under the hood but stores the agent's own experience, not external data.
+- **`ingestion.py`** — handles storing external domain knowledge into ChromaDB; things that arrive from outside the agent's own reasoning — reference documents, structured knowledge files, external data sources; reads source files from `data/knowledge/`, calls `embeddings.py` to convert content into vectors, and upserts into ChromaDB; re-running is safe because upsert overwrites existing entries by ID.
 - **`embeddings.py`** — a utility wrapper around the embedding model that knows nothing about what is being stored or why; its only job is to take any piece of text and convert it into a vector; used by both `ingestion.py` and `episodic.py` and keeps the embedding model swappable without touching the rest of the memory layer.
 
 ---
@@ -93,8 +94,8 @@
 ### `learning/` — where the agent gets better, the self-improvement loop that separates this from a simple script.
 
 - **`feedback.py`** — logs the outcome of each complete run to `data/runs/`: what the Claude model returned, the score `evaluator.py` assigned, and any real-world signals about whether the run succeeded; broader than just the Claude model's response — it captures how well the entire run went.
-- **`reflection.py`** — periodically queries `data/runs/` using RAG to identify patterns across recent runs, writes conclusions back into ChromaDB as updated beliefs, and produces a human-readable report in `data/reflections/`.
-- **`prompt_tuner.py`** — tracks which prompt variants in `data/prompts/` score higher over time and promotes winners back to `prompt.py`; over time the agent converges on better prompts automatically.
+- **`reflection.py`** — periodically queries `data/runs/` using RAG to identify patterns across recent runs, writes conclusions back into ChromaDB as updated beliefs, and produces a human-readable report in `data/reflections/`; triggered manually by the operator, not automatically after every run.
+- **`prompt_tuner.py`** — groups all scored runs by prompt version and computes average score and pass rate per version; reports the best-performing version and prints a promotion instruction; manual promotion into `prompt.py` is required — auto-edits are intentionally avoided to prevent a bad run batch from silently overwriting a working prompt.
 
 ---
 
@@ -123,7 +124,29 @@ Tests are run with `pytest`. A git pre-commit hook runs the full suite before ev
 - **`data/runs/`** — append-only JSONL run history; the source of truth for every run the agent has ever performed; read by `reflection.py` and `prompt_tuner.py`.
 - **`data/prompts/`** — versioned prompt snapshots; tracks which prompt was active when so results can always be traced back to a specific version.
 - **`data/reflections/`** — human-readable reflection reports written by `reflection.py`; one markdown file per reflection run, meant for you to read and review.
+- **`data/knowledge/`** — source files for external domain knowledge ingested into ChromaDB via `ingestion.py`; kept as human-readable, version-controlled files separate from the vector store so the source is auditable and can be re-ingested cleanly if the schema or embedding model changes; a `_template` file defines the expected schema for each knowledge type.
 - **`journal/`** — development session summaries written by Claude Code at the end of every session; records what was discussed, decided, and left open; development memory, not runtime memory.
+
+---
+
+## The human improvement loop
+
+The self-improvement loop has two participants: the agent and you. The agent accumulates run history, identifies patterns, and stores conclusions in ChromaDB. You decide what to act on, edit the prompt accordingly, and add external knowledge the agent cannot learn from runs alone. Neither participant can do the other's job.
+
+**What the agent does automatically:**
+- Scores every run against the criteria in `SPEC.md` via `evaluator.py`
+- Logs the score, criteria results, and prompt version to `data/runs/` via `feedback.py`
+- Stores a run summary in ChromaDB via `episodic.py` so future runs have historical context
+
+**What requires human action:**
+- **Trigger reflection** — run `reflect.py` periodically (not after every run); the conclusions it writes into ChromaDB become context for the next run automatically
+- **Read the reflection report** — `data/reflections/` contains the human-readable version; the failing criteria and their patterns tell you where the prompt is too vague or missing something
+- **Edit the system prompt** — find the instruction in `prompt.py` that covers the failing criterion, make it more specific, and bump `PROMPT_VERSION` so future runs are tagged with the new version
+- **Confirm with the prompt tuner** — after running several replays under the new version, run `prompt_tuner.tune()` to verify the average score improved; if it did not, the reflection points to a different root cause
+- **Add domain knowledge** — when the agent needs reference material it cannot learn from runs (structured facts about the problem domain), add source files to `data/knowledge/` and run `ingestion.py` to embed them into ChromaDB
+- **Update evaluator criteria** — when the definition of a good run changes, update `SPEC.md` first, then update `evaluator.py` to match; the criteria are the ground truth the entire improvement loop is measured against
+
+The detailed workflow for each of these steps is documented in `README.md`.
 
 ---
 
