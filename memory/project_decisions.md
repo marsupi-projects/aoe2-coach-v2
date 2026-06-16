@@ -51,6 +51,16 @@ Decisions locked in as of session 01. All decisions below are implemented in cod
 - Multiple runs of same replay in ChromaDB (96ea6838, e2747d6f, 07f7232c) — will inflate history until more replays added
 - Test files not yet written (`tests/` per BLUEPRINT.md)
 
+## Session 07 decisions (2026-06-17)
+
+| Area | Decision |
+|---|---|
+| Reflection reports location | `data/reflections/` — not `logs/`; logs is for debug traces only; `REFLECTIONS_PATH` added to config |
+| v1.3 validated | `reflect.py` ran against 7 real runs; 6 concrete conclusions produced; eAPM gap between players identified; v1.3 complete |
+| v1.4 plan | ChromaDB switches from `PersistentClient` (file) to `HttpClient` (HTTP) when `CHROMA_HOST` env var is set; local dev unchanged; new files: `Dockerfile`, `docker-compose.yml`, `.dockerignore` |
+
+**Why:** Deferring v1.4 to a fresh session — it touches `core/database.py` architecture and warrants a clean start.
+
 ## Session 02 decisions (2026-06-14)
 
 | Area | Decision |
