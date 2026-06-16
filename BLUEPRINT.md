@@ -93,7 +93,7 @@
 ### `learning/` — where the agent gets better, the self-improvement loop that separates this from a simple script.
 
 - **`feedback.py`** — logs the outcome of each complete run to `data/runs/`: what the Claude model returned, the score `evaluator.py` assigned, and any real-world signals about whether the run succeeded; broader than just the Claude model's response — it captures how well the entire run went.
-- **`reflection.py`** — periodically queries `data/runs/` using RAG to identify patterns across recent runs, writes conclusions back into ChromaDB as updated beliefs, and produces a human-readable report in `logs/`.
+- **`reflection.py`** — periodically queries `data/runs/` using RAG to identify patterns across recent runs, writes conclusions back into ChromaDB as updated beliefs, and produces a human-readable report in `data/reflections/`.
 - **`prompt_tuner.py`** — tracks which prompt variants in `data/prompts/` score higher over time and promotes winners back to `prompt.py`; over time the agent converges on better prompts automatically.
 
 ---
@@ -122,7 +122,7 @@ Tests are run with `pytest`. A git pre-commit hook runs the full suite before ev
 - **`data/chroma/`** — ChromaDB on-disk store; the vector database the agent reads from and writes to on every run.
 - **`data/runs/`** — append-only JSONL run history; the source of truth for every run the agent has ever performed; read by `reflection.py` and `prompt_tuner.py`.
 - **`data/prompts/`** — versioned prompt snapshots; tracks which prompt was active when so results can always be traced back to a specific version.
-- **`logs/`** — human-readable run reports written by `reflection.py`; one markdown file per run, meant for you to read and review.
+- **`data/reflections/`** — human-readable reflection reports written by `reflection.py`; one markdown file per reflection run, meant for you to read and review.
 - **`journal/`** — development session summaries written by Claude Code at the end of every session; records what was discussed, decided, and left open; development memory, not runtime memory.
 
 ---

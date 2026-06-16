@@ -16,7 +16,7 @@ from pathlib import Path
 
 import anthropic
 
-from config import ANTHROPIC_API_KEY, CLAUDE_MODEL, LOGS_PATH, RUNS_PATH
+from config import ANTHROPIC_API_KEY, CLAUDE_MODEL, REFLECTIONS_PATH, RUNS_PATH
 from core.database import upsert
 
 REFLECTION_SYSTEM_PROMPT = """\
@@ -169,9 +169,9 @@ def reflect(min_runs: int = 3) -> dict:
 
 
 def _write_report(conclusions: str, entries: list[dict], reflection_id: str) -> Path:
-    LOGS_PATH.mkdir(parents=True, exist_ok=True)
+    REFLECTIONS_PATH.mkdir(parents=True, exist_ok=True)
     date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    path = LOGS_PATH / f"reflection_{date_str}.md"
+    path = REFLECTIONS_PATH / f"reflection_{date_str}.md"
 
     players_seen: set[str] = set()
     for e in entries:

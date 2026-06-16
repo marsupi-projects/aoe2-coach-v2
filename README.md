@@ -120,6 +120,7 @@ A typical run takes 3–4 minutes (dominated by the Claude API call with adaptiv
 | `data/runs/YYYY-MM-DD.jsonl` | Append-only run history |
 | `data/chroma/` | ChromaDB vector store — player and team history |
 | `logs/YYYY-MM-DD.jsonl` | Step-level structured log for debugging |
+| `data/reflections/reflection_YYYY-MM-DD.md` | Reflection report — patterns identified across runs (written by `reflect.py`) |
 
 ### Evaluator
 
@@ -129,18 +130,20 @@ Each run is scored against 11 criteria from `SPEC.md §3`. A score ≥ 0.7 (8/11
 
 ## Running reflection and prompt tuner
 
-After accumulating a few replays, run reflection to identify patterns and write conclusions into ChromaDB. The main agent picks them up automatically on the next run.
-
 ```powershell
 python reflect.py
 ```
 
-This calls two things in sequence:
+**When to run it:** After a batch of games — not after every single replay. A few games is enough to start seeing patterns; the more runs you have, the more useful the conclusions.
 
-1. **Reflection** — reads `data/runs/`, calls Claude to identify patterns across players, civs, and evaluator criteria, stores conclusions in ChromaDB, writes a markdown report to `logs/reflection_YYYY-MM-DD.md`
+**What it does:**
+
+1. **Reflection** — reads `data/runs/`, calls Claude to identify patterns across players, civs, and evaluator criteria. Serves two purposes:
+   - Writes `data/reflections/reflection_YYYY-MM-DD.md` — a report for you to read, surfacing trends across all your games that a single coaching report would miss
+   - Stores the same conclusions in ChromaDB so the main agent picks them up automatically on the next `main.py` run, making future coaching reports more specific
 2. **Prompt tuner** — groups all scored runs by prompt version and reports which version performs best
 
-A minimum of 3 scored runs is required for reflection to proceed. If you have fewer, it prints a skip message and exits cleanly.
+A minimum of 3 scored runs is required. If you have fewer, it prints a skip message and exits cleanly.
 
 ---
 

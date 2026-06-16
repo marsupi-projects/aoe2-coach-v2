@@ -145,19 +145,19 @@ class TestFormatEntries:
 class TestWriteReport:
     def test_creates_file(self, tmp_path, monkeypatch):
         import learning.reflection as mod
-        monkeypatch.setattr(mod, "LOGS_PATH", tmp_path)
+        monkeypatch.setattr(mod, "REFLECTIONS_PATH", tmp_path)
         path = _write_report("1. Pattern found.", [make_entry()], "reflection-id-001")
         assert path.exists()
 
     def test_file_contains_conclusions(self, tmp_path, monkeypatch):
         import learning.reflection as mod
-        monkeypatch.setattr(mod, "LOGS_PATH", tmp_path)
+        monkeypatch.setattr(mod, "REFLECTIONS_PATH", tmp_path)
         path = _write_report("1. eAPM is low.", [make_entry()], "reflection-id-001")
         assert "eAPM is low" in path.read_text(encoding="utf-8")
 
     def test_file_contains_player_names(self, tmp_path, monkeypatch):
         import learning.reflection as mod
-        monkeypatch.setattr(mod, "LOGS_PATH", tmp_path)
+        monkeypatch.setattr(mod, "REFLECTIONS_PATH", tmp_path)
         path = _write_report("conclusions", [make_entry()], "reflection-id-001")
         content = path.read_text(encoding="utf-8")
         assert "Alice" in content
@@ -177,7 +177,7 @@ class TestReflect:
     def test_skips_when_too_few_runs(self, tmp_path, monkeypatch, tmp_chroma):
         import learning.reflection as mod
         monkeypatch.setattr(mod, "RUNS_PATH", tmp_path)
-        monkeypatch.setattr(mod, "LOGS_PATH", tmp_path / "logs")
+        monkeypatch.setattr(mod, "REFLECTIONS_PATH", tmp_path / "reflections")
         result = reflect(min_runs=3)
         assert result["skipped"] is True
         assert result["runs_analyzed"] == 0
@@ -185,7 +185,7 @@ class TestReflect:
     def test_runs_with_enough_data(self, tmp_path, monkeypatch, tmp_chroma):
         import learning.reflection as mod
         monkeypatch.setattr(mod, "RUNS_PATH", tmp_path)
-        monkeypatch.setattr(mod, "LOGS_PATH", tmp_path / "logs")
+        monkeypatch.setattr(mod, "REFLECTIONS_PATH", tmp_path / "reflections")
         for i in range(3):
             (tmp_path / f"2026-06-1{i}.jsonl").write_text(
                 json.dumps(make_entry(run_id=f"run-{i}-" + "0" * 29, score=1.0)) + "\n",
@@ -201,7 +201,7 @@ class TestReflect:
     def test_stores_reflection_in_chroma(self, tmp_path, monkeypatch, tmp_chroma):
         import learning.reflection as mod
         monkeypatch.setattr(mod, "RUNS_PATH", tmp_path)
-        monkeypatch.setattr(mod, "LOGS_PATH", tmp_path / "logs")
+        monkeypatch.setattr(mod, "REFLECTIONS_PATH", tmp_path / "reflections")
         for i in range(3):
             (tmp_path / f"2026-06-1{i}.jsonl").write_text(
                 json.dumps(make_entry(run_id=f"run-{i}-" + "0" * 29, score=1.0)) + "\n",
