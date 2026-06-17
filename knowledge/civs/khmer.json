@@ -1,0 +1,38 @@
+{
+    "civ": "Khmer",
+    "strengths": [
+      "no building prerequisites — maximum build order flexibility",
+      "Ballista Elephant is a unique and powerful ranged siege unit on a cavalry chassis",
+      "strongest Battle Elephants in the game when fully upgraded",
+      "strong Scorpions with extra range from unique tech",
+      "great farming eco — no Mill required to place farms"
+    ],
+    "weaknesses": [
+      "no Thumb Ring — archers are inaccurate and unreliable",
+      "no Camels — vulnerable to enemy cavalry without elephant support",
+      "Ballista Elephants are expensive and extremely vulnerable to Monks",
+      "no Heresy technology — enemy Monks converting elephants is devastating",
+      "no prereqs can encourage sloppy play — eco discipline still matters"
+    ],
+    "unique_unit": "Ballista Elephant — mounted Scorpion with high HP and pierce armour; bolts pass through multiple units; devastating in masses",
+    "unique_tech": {
+      "castle_age": "Tusk Swords — Battle Elephants gain +3 attack",
+      "imperial_age": "Double Crossbow — Ballista Elephants and Scorpions fire two bolts simultaneously"
+    },
+    "economy_bonuses": [
+      "Farmers do not need a Mill to place farms — saves wood and simplifies build order",
+      "No building prerequisites — Siege Workshop, Stable, or Archery Range can be built without unlocking prior buildings"
+    ],
+    "team_bonus": "Scorpions +1 range",
+    "build_order_notes": "No-prereq bonus allows skipping straight to Siege Workshop or Stable from Dark Age if needed. Standard play is fast Castle into Battle Elephants or a siege push. Ballista Elephants require Castle plus Siege Workshop but dominate in Imperial. Always screen elephants from Monks with Hussars or Scorpions.",
+    "common_pairings": [
+      "Britons — Briton archers screen for Khmer elephants and siege while Khmer cover melee",
+      "Aztecs — Aztec Monks counter enemy Monks that threaten Khmer elephants",
+      "Vietnamese — Rattan Archers combined with Khmer siege and elephants is a dominant late-game combo"
+    ],
+    "power_spikes": {
+      "feudal_age": "Weak — limited aggressive options and no strong archer upgrade path",
+      "castle_age": "Strong — Battle Elephants with Tusk Swords are hard to stop without Monks",
+      "imperial_age": "Very strong — Double Crossbow Ballista Elephants and Scorpions shred everything"
+    }
+  }

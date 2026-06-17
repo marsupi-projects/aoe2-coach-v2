@@ -61,7 +61,7 @@ REPORTS_PATH=data/reports
 PROMPTS_PATH=data/prompts
 REPLAYS_INBOX=data/replays/inbox
 LOGS_PATH=logs
-KNOWLEDGE_PATH=data/knowledge
+KNOWLEDGE_PATH=knowledge
 ```
 
 Only `ANTHROPIC_API_KEY` is required. All other values have working defaults and can be left as-is.
@@ -220,7 +220,7 @@ The agent calls `get_civ_knowledge()` before writing each report. The more civ d
 
 To add a new civilisation:
 
-1. Copy `data/knowledge/civs/_template.json` and rename it (e.g. `franks.json`)
+1. Copy `knowledge/civs/_template.json` and rename it (e.g. `franks.json`)
 2. Fill in the fields
 3. Run:
 

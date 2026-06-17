@@ -1,0 +1,37 @@
+{
+    "civ": "Byzantines",
+    "strengths": [
+      "buildings gain significant bonus HP each age — extremely durable base",
+      "cheap trash units — Skirmishers, Spearmen, and Militia-line all cost less",
+      "most complete tech tree in the game — can field almost any unit",
+      "Cataphracts resist anti-cavalry bonus damage from Halberdiers and Camels",
+      "Greek Fire makes Byzantine navy dominant on water maps"
+    ],
+    "weaknesses": [
+      "no direct economic bonuses — slowest eco development of any civ",
+      "no standout offensive unit until Logistica Cataphracts come online",
+      "jack-of-all-trades identity means no single dominant strategy",
+      "requires strong game-reading to exploit full tech tree — not beginner friendly"
+    ],
+    "unique_unit": "Cataphract — elite heavy cavalry that takes significantly reduced bonus damage from anti-cavalry units like Halberdiers and Camels",
+    "unique_tech": {
+      "castle_age": "Greek Fire — Fire Ships gain +1 range, making Byzantine navy extremely hard to contest",
+      "imperial_age": "Logistica — Cataphracts deal trample damage to surrounding units"
+    },
+    "economy_bonuses": [
+      "No direct eco bonus — the primary weakness of the civ",
+      "Cheap trash units (Skirmisher, Spear, Militia-line) conserve resources across long wars"
+    ],
+    "team_bonus": "Monks heal 25% faster",
+    "build_order_notes": "Wall up early, use cheap trash units to deflect rushes, and boom into Castle Age without heavy military spending. Transition into Cataphracts and siege in late game. Greek Fire makes water maps nearly automatic wins. Avoid open-field aggression until Logistica Cataphracts are online.",
+    "common_pairings": [
+      "Persians — Persians boom and supply cavalry while Byzantines hold the base and support with Monks",
+      "Aztecs — Aztecs handle aggressive military while Byzantines absorb pressure with cheap trash",
+      "Franks — Franks bring powerful Paladins and eco while Byzantines cover with trash units and fast Monk healing"
+    ],
+    "power_spikes": {
+      "feudal_age": "Weak offensively — hold with cheap Skirmishers and Spearmen",
+      "castle_age": "Moderate — defensive strength peaks and Cataphracts become available but are expensive",
+      "imperial_age": "Strong — Logistica Cataphracts plus full tech tree plus cheap trash is very difficult to exhaust"
+    }
+  }

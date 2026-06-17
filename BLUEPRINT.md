@@ -124,7 +124,7 @@ Tests are run with `pytest`. A git pre-commit hook runs the full suite before ev
 - **`data/runs/`** — append-only JSONL run history; the source of truth for every run the agent has ever performed; read by `reflection.py` and `prompt_tuner.py`.
 - **`data/prompts/`** — versioned prompt snapshots; tracks which prompt was active when so results can always be traced back to a specific version.
 - **`data/reflections/`** — human-readable reflection reports written by `reflection.py`; one markdown file per reflection run, meant for you to read and review.
-- **`data/knowledge/`** — source files for external domain knowledge ingested into ChromaDB via `ingestion.py`; kept as human-readable, version-controlled files separate from the vector store so the source is auditable and can be re-ingested cleanly if the schema or embedding model changes; a `_template` file defines the expected schema for each knowledge type.
+- **`knowledge/`** — source files for external domain knowledge ingested into ChromaDB via `ingestion.py`; lives at the project root (not inside `data/`) so it is version-controlled like source code; kept separate from the vector store so the source is auditable and can be re-ingested cleanly if the schema or embedding model changes; a `_template` file defines the expected schema for each knowledge type.
 - **`journal/`** — development session summaries written by Claude Code at the end of every session; records what was discussed, decided, and left open; development memory, not runtime memory.
 
 ---

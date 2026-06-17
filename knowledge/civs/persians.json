@@ -1,0 +1,36 @@
+{
+    "civ": "Persians",
+    "strengths": [
+      "fastest Town Center and Dock work rate in the game — insane early eco",
+      "War Elephant is one of the highest HP units in the game with trample damage",
+      "strong cavalry line with both Paladin and Hussar available",
+      "excellent navy with fast-working Docks"
+    ],
+    "weaknesses": [
+      "War Elephants are slow and expensive — hard countered by Monks and Halberdiers",
+      "no Bracer — archers lose 1 range in Imperial Age",
+      "no Hoardings — Castle HP upgrade unavailable",
+      "predictable boom opening — aggressive civs can rush before the eco advantage kicks in"
+    ],
+    "unique_unit": "War Elephant — massive HP and attack, deals trample damage; slow but nearly unstoppable without hard counters",
+    "unique_tech": {
+      "castle_age": "Kamandaran — Cavalry Archers cost gold instead of wood, enabling near-infinite late-game production",
+      "imperial_age": "Mahouts — War Elephants move 30% faster, partially addressing their biggest weakness"
+    },
+    "economy_bonuses": [
+      "TC and Dock work rate increases each age: +10% Dark, +15% Feudal, +20% Castle, +25% Imperial",
+      "Start with +50 food and +50 wood — strong opening flexibility"
+    ],
+    "team_bonus": "Knights have +2 Line of Sight",
+    "build_order_notes": "Lean into the TC bonus immediately — you out-eco almost everyone in Dark and Feudal Age. Fast Castle into Knight flood is standard. War Elephants are a late-game flex pick; avoid over-committing to them if the opponent has Monks or Halberdiers.",
+    "common_pairings": [
+      "Britons — Britons cover the archer gap while Persians bring cavalry and eco pressure",
+      "Aztecs — Aztecs handle aggressive military while Persians boom and supply late-game power",
+      "Berbers — cheap Berber cavalry synergises with Persian fast TC for a dual cavalry flood"
+    ],
+    "power_spikes": {
+      "feudal_age": "Very strong — faster TC means more villagers earlier than almost any civ",
+      "castle_age": "Strong — Knight rush backed by superior eco is hard to stop",
+      "imperial_age": "Variable — War Elephants are game-ending if unopposed, weak if enemy has Monks or Halbs"
+    }
+  }

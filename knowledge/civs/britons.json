@@ -1,0 +1,37 @@
+{
+    "civ": "Britons",
+    "strengths": [
+      "best foot archers in the game — extra range on Longbowmen and Arbalests",
+      "cheap Town Centers from Castle Age accelerate booming",
+      "strong Paladins and Halberdiers for army diversity",
+      "excellent late-game eco via cheap TCs"
+    ],
+    "weaknesses": [
+      "no Bloodlines — cavalry have less HP than average",
+      "no Hussar upgrade — vulnerable to late-game raiding",
+      "no Siege Engineers — shorter-ranged Trebuchets and siege",
+      "predictable gameplan — opponents expect and prepare for mass archers"
+    ],
+    "unique_unit": "Longbowman — foot archer with exceptional range; fully upgraded reaches 11 range, outranging virtually everything including towers",
+    "unique_tech": {
+      "castle_age": "Yeomen — +1 range for foot archers and +2 attack for towers",
+      "imperial_age": "Warwolf — Trebuchets deal blast damage, killing units clustered near targeted buildings"
+    },
+    "economy_bonuses": [
+      "Shepherds work 25% faster — strong early food income on sheep-heavy maps",
+      "Town Centers cost -50% wood from Castle Age onward — enables aggressive booming",
+      "Market fees reduced — easier to convert resources when needed"
+    ],
+    "team_bonus": "Archery Ranges work 20% faster",
+    "build_order_notes": "Fast Castle into cheap TC boom while transitioning to mass Longbowmen or Arbalests. Longbowmen outrange towers and enemy archers — use that to siege safely. Pair with Knights or Halberdiers to cover melee weaknesses.",
+    "common_pairings": [
+      "Mayans — double archer output; Mayans cover raiding weakness with Eagle Warriors",
+      "Lithuanians — top-tier Paladins cover the cavalry gap while Britons provide ranged support",
+      "Khmer — Khmer siege and elephants combined with Briton archers is overwhelming"
+    ],
+    "power_spikes": {
+      "feudal_age": "Moderate — scout and archer opening is solid but not exceptional",
+      "castle_age": "Strong — Longbowmen online, cheap TCs allow fast boom",
+      "imperial_age": "Very strong — Arbalest plus Warwolf Trebs plus Paladins is a complete army"
+    }
+  }
