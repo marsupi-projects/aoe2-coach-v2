@@ -1,19 +1,16 @@
 ---
 name: next-session-priority
-description: First thing next session — continue Docker setup after WSL 2 install + laptop restart
+description: v1.4 complete — next is v1.5 CI/CD (GitHub Actions + VPS deploy)
 metadata: 
   node_type: memory
   type: project
   originSessionId: 983c2a0e-4b41-4f4c-98b4-4555b145d7ae
 ---
 
-Docker setup (v1.4) is mid-flight. All files are written and committed. Stopped because WSL 2 was not installed — `wsl --install` was run and a laptop restart is required to complete it.
+v1.4 Docker is complete and tested. Next milestone is v1.5 CI/CD:
+- GitHub Actions runs test suite on every push
+- If tests pass, workflow SSHs into VPS, pulls latest code, restarts Docker stack
 
-**Pick up here:**
-1. After restart, WSL 2 finishes setup automatically (a terminal may pop up — let it complete)
-2. Start Docker Desktop, wait for whale icon to go steady
-3. `docker compose build` — builds the agent image
-4. `docker compose up chromadb -d` — starts ChromaDB in background
-5. Test a run: `docker compose run agent python main.py "data/replays/inbox/your_replay.aoe2record"`
+**Prerequisite:** A VPS needs to be provisioned first. User does not have one yet. Start next session by discussing VPS options before writing any CI/CD config.
 
-**Why:** v1.4 is the Docker milestone — agent and ChromaDB as two containers, stack deployable on any VPS with one command.
+**How to apply:** Do not jump straight into GitHub Actions config — the SSH deploy step requires a VPS IP, credentials, and Docker installed on the server. Establish that first.

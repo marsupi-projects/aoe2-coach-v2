@@ -4,9 +4,27 @@ An LLM agent that analyses Age of Empires II replay files and produces structure
 
 ---
 
+## Quick start
+
+```powershell
+# 1. Start ChromaDB (once per session)
+docker compose up chromadb -d
+
+# 2. Analyse a replay
+docker compose run agent python main.py "data/replays/inbox/your_replay.aoe2record"
+
+# 3. Read the report
+#    data/reports/YYYYMMDD_....txt
+```
+
+That's the day-to-day workflow. Everything below covers setup, configuration, and how to improve the agent over time.
+
+---
+
 ## Requirements
 
-- Python 3.11+
+- Docker Desktop (recommended) — runs the agent and ChromaDB as containers; no Python setup needed on the host
+- Python 3.11+ — only needed if running without Docker
 - An Anthropic API key
 
 ---
@@ -70,7 +88,22 @@ Only `ANTHROPIC_API_KEY` is required. All other values have working defaults and
 
 ## Running the agent
 
-Place your replay file anywhere accessible, then pass its path as the only argument:
+### With Docker (recommended)
+
+```powershell
+# Start ChromaDB in the background (once per session)
+docker compose up chromadb -d
+
+# Run the agent against a replay
+docker compose run agent python main.py "data/replays/inbox/your_replay.aoe2record"
+
+# Stop everything when done for the day (optional)
+docker compose down
+```
+
+### Without Docker (local Python)
+
+Activate your virtual environment first, then:
 
 ```bash
 python main.py "data\replays\inbox\MP Replay v101.103.47452.0 @2026.06.13 143618 (1).aoe2record"
@@ -277,15 +310,17 @@ learning/
   prompt_tuner.py    # Compares prompt versions by average score
 infra/
   logger.py          # Structured JSONL step-level logging
+knowledge/civs/      # Civ knowledge JSON files — source for ingestion.py
 data/
   replays/inbox/     # Drop replay files here
   reports/           # Coaching reports written here
   runs/              # JSONL run history
   chroma/            # ChromaDB on-disk store
-  knowledge/civs/    # Civ knowledge JSON files — source for ingestion.py
   reflections/       # Reflection reports written by reflect.py
 logs/                # Step-level JSONL logs
 journal/             # Development session notes (not runtime)
+Dockerfile           # Agent container image definition
+docker-compose.yml   # Runs agent + ChromaDB as two containers
 ```
 
 ---
