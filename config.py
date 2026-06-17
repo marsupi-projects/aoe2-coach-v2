@@ -8,6 +8,7 @@ ANTHROPIC_API_KEY: str = os.environ["ANTHROPIC_API_KEY"]
 CLAUDE_MODEL: str = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-6")
 
 CHROMA_PATH: Path = Path(os.getenv("CHROMA_PATH", "data/chroma"))
+CHROMA_HOST: str | None = os.getenv("CHROMA_HOST")
 RUNS_PATH: Path = Path(os.getenv("RUNS_PATH", "data/runs"))
 REPORTS_PATH: Path = Path(os.getenv("REPORTS_PATH", "data/reports"))
 PROMPTS_PATH: Path = Path(os.getenv("PROMPTS_PATH", "data/prompts"))

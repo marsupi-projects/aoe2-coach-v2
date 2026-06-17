@@ -1,21 +1,29 @@
 """
 Single interface to ChromaDB. All modules that need vector database access go
 through here — no other module opens a ChromaDB client directly.
+
+Client selection:
+  CHROMA_HOST set   → HttpClient (Docker: ChromaDB runs as a separate container)
+  CHROMA_HOST unset → PersistentClient (local dev: reads files directly from disk)
 """
 
 from __future__ import annotations
 
 import chromadb
 from chromadb import Collection
-from config import CHROMA_PATH
+from config import CHROMA_HOST, CHROMA_PATH
 
-_client: chromadb.PersistentClient | None = None
+_client: chromadb.ClientAPI | None = None
 
 
-def _get_client() -> chromadb.PersistentClient:
+def _get_client() -> chromadb.ClientAPI:
     global _client
     if _client is None:
-        _client = chromadb.PersistentClient(path=str(CHROMA_PATH))
+        if CHROMA_HOST:
+            # Docker mode: ChromaDB is a separate container reachable over HTTP
+            _client = chromadb.HttpClient(host=CHROMA_HOST, port=8000)
+        else:
+            _client = chromadb.PersistentClient(path=str(CHROMA_PATH))
     return _client
 
 
