@@ -1,0 +1,37 @@
+{
+    "civ": "Spanish",
+    "strengths": [
+      "Conquistadors — early firearm unit with high mobility and damage",
+      "No Blacksmith upgrades needed — technologies provide equivalent bonuses",
+      "Catholic faith advantages — monks stronger and cheaper",
+      "Consistent gold income throughout all game ages"
+    ],
+    "weaknesses": [
+      "Weaker archer line compared to dedicated archer civs",
+      "No unique cavalry upgrades — paladin line standard quality only",
+      "Infantry options less compelling than specialist civs",
+      "Early game relies on careful resource management due to balanced bonuses"
+    ],
+    "unique_unit": "Conquistador — mounted crossbowman equivalent, powerful firearm unit effective against both infantry and cavalry",
+    "unique_tech": {
+      "castle_age": "Milites Christi — Monks convert faster and have more range",
+      "imperial_age": "Relics generate gold passively — sustainable late-game economy"
+    },
+    "economy_bonuses": [
+      "Lumber camps gather +15% wood starting in Feudal Age",
+      "Mining camps gather +20% gold starting in Feudal Age",
+      "Relic gold conversion provides passive income stream"
+    ],
+    "team_bonus": "Market trade cost reduced — economic synergy for resource-heavy compositions",
+    "build_order_notes": "Feudal rush with Conquistadors if opponent is vulnerable. Otherwise, steady eco build leveraging wood/gold bonuses. Tech through monasteries for monk pressure or transition to gunpowder. Relics become critical late-game income.",
+    "common_pairings": [
+      "Italians — bankers complement Spanish market trade bonuses",
+      "Franks — paladin strength covers Spanish cavalry weakness",
+      "Byzantines — anti-cavalry coverage while Spanish focus on firearms and monks"
+    ],
+    "power_spikes": {
+      "feudal_age": "Strong — Conquistadors available early for harassment",
+      "castle_age": "Very strong — Monastery tech unlocks and firearm pressure peaks",
+      "imperial_age": "Strong — passive relic income sustains army production indefinitely"
+    }
+  }

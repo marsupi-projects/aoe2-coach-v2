@@ -1,0 +1,37 @@
+{
+    "civ": "Teutons",
+    "strengths": [
+      "Teutonic Knights — incredibly durable infantry that excel in sustained combat",
+      "Gold-efficient army composition, less reliant on iron mines",
+      "Strong defensive positioning with castle-age Halberdiers",
+      "Excellent late-game infantry power with unique tech boosts"
+    ],
+    "weaknesses": [
+      "Villagers move slower — economy builds pace is inherently sluggish",
+      "No cavalry bonuses — weak against raiding and map control",
+      "Relatively expensive military production compared to eco-focused civs",
+      "Limited archer options forces close-range engagements"
+    ],
+    "unique_unit": "Teutonic Knight — heavily armored infantry with high HP and armor, excels at holding ground and breaking siege",
+    "unique_tech": {
+      "castle_age": "Grunwald — increases attack of soldiers and Halberdiers",
+      "imperial_age": "Crusade — further attack boost for Teutonic Knights and Halberdiers"
+    },
+    "economy_bonuses": [
+      "Gold mines last longer — stretched gold reserves throughout mid-game",
+      "Monks heal faster when interacting with Teutonic units",
+      "Starting villager moves at normal speed but village production is methodically paced"
+    ],
+    "team_bonus": "Gold mines are +20% efficient — valuable for prolonged team games",
+    "build_order_notes": "Slow but steady economic buildup. Secure gold early to leverage mine efficiency. Transition into Teutonic Knights around Imperial Age with Halberdiers backing. Use defensive castling to buy time for infantry push.",
+    "common_pairings": [
+      "Burgundians — vineyards complement Teuton economy; Burgundian cavalry fills raiding gap",
+      "Portuguese — Feitoria boosts late-game economy alongside Teuton gold stretching",
+      "Hungarians — Huszars provide raiding coverage that Teutons desperately lack"
+    ],
+    "power_spikes": {
+      "feudal_age": "Weak — slow villager movement hampers aggressive opens",
+      "castle_age": "Moderate — Halberdiers online but Teutonic Knights still coming",
+      "imperial_age": "Very strong — fully upgraded Teutonic Knights are nearly unstoppable in sieges"
+    }
+  }
